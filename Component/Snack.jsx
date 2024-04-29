@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     justifyContent: 'center',
-    alignItems: 'center',
+    paddingLeft: 200
   },
   row: {
     flexDirection: 'row',
@@ -98,10 +98,10 @@ const styles = StyleSheet.create({
     padding: '20px',
   },
    imageB: {
-    width: 370,
+    width: 380,
     height: 432,
     resizeMode: 'cover',
-    borderRadius: 10,
+    borderRadius: '15px',
   },
   title: {
     fontWeight: 'bold',

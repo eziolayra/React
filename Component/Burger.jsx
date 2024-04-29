@@ -14,7 +14,7 @@ const Burger = () => {
             <View style={styles.menuText}>
               <Text style={styles.title}><Text style={styles.highlight}>Mini cheese Burger</Text> 
               <Text style={styles.price}>$9.00</Text></Text>
-              <Text style={styles.description} numberOfLines={null}>Lorem ipsum dolor sit amet elit. Phasel nec preti facil</Text>
+              <Text style={styles.description} >Lorem ipsum dolor sit amet elit. Phasel nec preti facil</Text>
             </View>
           </View>
           <View style={styles.menuItem}>
