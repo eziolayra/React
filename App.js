@@ -4,7 +4,7 @@ import MenuTabs from './Component/ButtonClick';
 import { ScrollView } from 'react-native-web';
 
 const App = () => {
-  const [activeTab, setActiveTab] = useState('beverages');
+  const [activeTab, setActiveTab] = useState('Burgers');
 
   return (
     <ScrollView style={styles.container}>

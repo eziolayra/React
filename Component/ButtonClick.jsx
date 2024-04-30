@@ -1,17 +1,16 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
-import Burger from './Burger';
+import Burgers from './Burgers';
 import Beverage from './Beverage';
 import Snack from './Snack';
-import { ScrollView } from 'react-native-web';
 
 const MenuTabs = () => {
-  const [activeTab, setActiveTab] = useState('Burger');
+  const [activeTab, setActiveTab] = useState('Burgers');
 
   const renderComponent = () => {
     switch (activeTab) {
-      case 'Burger':
-        return <Burger />;
+      case 'Burgers':
+        return <Burgers />;
       case 'Snack':
         return <Snack />;
       case 'Beverage':
@@ -25,9 +24,9 @@ const MenuTabs = () => {
     <View style={styles.container}>
       <View style={styles.buttonContainer}>
         <TouchableOpacity
-          style={[styles.tab, activeTab === 'Burger' && styles.activeTab]}
-          onPress={() => setActiveTab('Burger')}>
-          <Text style={[styles.tabText, activeTab === 'Burger' && styles.activeTabText]}>Burgers</Text>
+          style={[styles.tab, activeTab === 'Burgers' && styles.activeTab]}
+          onPress={() => setActiveTab('Burgers')}>
+          <Text style={[styles.tabText, activeTab === 'Burgers' && styles.activeTabText]}>Burgers</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={[styles.tab, activeTab === 'Snack' && styles.activeTab]}

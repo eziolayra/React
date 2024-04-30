@@ -1,81 +1,114 @@
-import React from 'react';
-import { View, ScrollView, Text, Image, StyleSheet } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, ScrollView, Text, Image, StyleSheet, TouchableOpacity, TextInput } from 'react-native';
 
-const Burgers = () => {
-  return (
-    <ScrollView>
-    <View style={styles.container}>
-      <View style={styles.row}>
-        <View style={styles.menuItems}>
-          <View style={styles.menuItem}>
-            <View style={styles.menuImg}>
-              <Image source={require('./pic/burger.jpg')} style={styles.image} />
-            </View>
-            <View style={styles.menuText}>
-              <Text style={styles.title}><Text style={styles.highlight}>Mini cheese Burger</Text> 
-              <Text style={styles.price}>$9.00</Text></Text>
-              <Text style={styles.description}>Lorem ipsum dolor sit amet elit. Phasel nec preti facil</Text>
-            </View>
-          </View>
-          <View style={styles.menuItem}>
-            <View style={styles.menuImg}>
-              <Image source={require('./pic/burger.jpg')} style={styles.image} />
-            </View>
-            <View style={styles.menuText}>
-              <Text style={styles.title}><Text style={styles.highlight}>Double size burger</Text>
-               <Text style={styles.price}>$11.00</Text></Text>
-              <Text style={styles.description}>Lorem ipsum dolor sit amet elit. Phasel nec preti facil</Text>
-            </View>
-          </View>
-          <View style={styles.menuItem}>
-            <View style={styles.menuImg}>
-              <Image source={require('./pic/burger.jpg')} style={styles.image} />
-            </View>
-            <View style={styles.menuText}>
-              <Text style={styles.title}><Text style={styles.highlight}>Bacon, EGG and Cheese</Text>
-               <Text style={styles.price}>$13.00</Text></Text>
-              <Text style={styles.description}>Lorem ipsum dolor sit amet elit. Phasel nec preti facil</Text>
-            </View>
-          </View>
-          <View style={styles.menuItem}>
-            <View style={styles.menuImg}>
-              <Image source={require('./pic/burger.jpg')} style={styles.image} />
-            </View>
-            <View style={styles.menuText}>
-              <Text style={styles.title}><Text style={styles.highlight}>Pulled porx Burger</Text> 
-              <Text style={styles.price}>$18.00</Text></Text>
-              <Text style={styles.description}>Lorem ipsum dolor sit amet elit. Phasel nec preti facil</Text>
-            </View>
-          </View>
-          <View style={styles.menuItem}>
-            <View style={styles.menuImg}>
-              <Image source={require('./pic/burger.jpg')} style={styles.image} />
-            </View>
-            <View style={styles.menuText}>
-              <Text style={styles.title}><Text style={styles.highlight}>Fried chicken Burger</Text> 
-              <Text style={styles.price}>$22.00</Text></Text>
-              <Text style={styles.description}>Lorem ipsum dolor sit amet elit. Phasel nec preti facil</Text>
-            </View>
-          </View>
-        </View>
-        <View style={styles.imageColumn}>
-          <Image source={require('./pic/burger.jpg')} style={styles.imageB} />
-        </View>
+// Reusable MenuItem component
+const MenuItem = ({ image, handleImageClick, title, price, description }) => (
+  <TouchableOpacity onPress={() => handleImageClick(image)}>
+    <View style={styles.menuItem}>
+      <View style={styles.menuImg}>
+        <Image source={image} style={styles.image} />
+      </View>
+      <View style={styles.menuText}>
+        <Text style={styles.title}><Text style={styles.highlight}>{title}</Text>
+          <Text style={styles.price}>${price}</Text></Text>
+        <Text style={styles.description}>{description}</Text>
       </View>
     </View>
+  </TouchableOpacity>
+);
+
+const Burgers = () => {
+  const [count, setCount] = useState(0);
+  const [selectedImage, setSelectedImage] = useState(require('./pic/mini_cheeseburgers.jpg'));
+
+  useEffect(() => {
+    // Set default image as Mini cheeseburgers when component mounts
+    setSelectedImage(require('./pic/mini_cheeseburgers.jpg'));
+  }, []);
+
+  const handleImageClick = (image) => {
+    setSelectedImage(image);
+  };
+
+  const incrementCount = () => {
+    setCount(count + 1);
+  };
+
+  const decrementCount = () => {
+    if (count > 0) {
+      setCount(count - 1);
+    }
+  };
+
+  return (
+    <ScrollView>
+      <View style={styles.container}>
+        <View style={styles.row}>
+          <View style={styles.menuItems}>
+            <MenuItem
+              image={require('./pic/mini_cheeseburgers.jpg')}
+              handleImageClick={handleImageClick}
+              title="Mini cheese Burger"
+              price="9.00"
+              description="Lorem ipsum dolor sit amet elit. Phasel nec preti facil"
+            />
+            <MenuItem
+              image={require('./pic/doubleSizedBurger.jpg')}
+              handleImageClick={handleImageClick}
+              title="Double Sized Burger"
+              price="10.00"
+              description="Lorem ipsum dolor sit amet elit. Phasel nec preti facil"
+            />
+            <MenuItem
+              image={require('./pic/friedChickenBurger.jpg')}
+              handleImageClick={handleImageClick}
+              title="Fried Chicken Burger"
+              price="11.00"
+              description="Lorem ipsum dolor sit amet elit. Phasel nec preti facil"
+            />
+            <MenuItem
+              image={require('./pic/pulledPorkBurger.jpg')}
+              handleImageClick={handleImageClick}
+              title="Pulled Pork Burger"
+              price="12.00"
+              description="Lorem ipsum dolor sit amet elit. Phasel nec preti facil"
+            />
+            {/* Add other MenuItem components for other menu items */}
+            </View>
+            {/* Display the selected image here */}
+            <View style={styles.selectedImageContainer}>
+                {selectedImage && <Image source={selectedImage} style={styles.selectedImage} />}
+                <View style={styles.countContainer}>
+                  <View style={styles.countButtonContainer}>
+                    <TouchableOpacity onPress={decrementCount} style={styles.countButton}>
+                      <Text style={styles.countButtonText}>-</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.countBox}>
+                      <Text style={styles.countText}>{count}</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={incrementCount} style={styles.countButton}>
+                      <Text style={styles.countButtonText}>+</Text>
+                    </TouchableOpacity>
+                  </View>
+                  <TouchableOpacity style={styles.orderButton}>
+                    <Text style={styles.orderButtonText}>Order now</Text>
+                  </TouchableOpacity>
+                </View>
+          </View>
+
+        </View>
+      </View>
     </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    padding: '20px',
+    padding: 20,
     flex: 1,
     backgroundColor: '#fff',
     justifyContent: 'center',
-    alignItems: 'center',
-    marginLeft: '15px',
-    marginRight: '15px',
+    paddingLeft: 200
   },
   row: {
     flexDirection: 'row',
@@ -87,40 +120,34 @@ const styles = StyleSheet.create({
   menuItem: {
     flexDirection: 'row',
     marginBottom: 30,
-    alignItems: 'center',
+    alignItems: 'left',
   },
   menuImg: {
-    marginRight: '10px',
+    marginRight: 10,
   },
   menuText: {
-    width: 'calc(100% - 100px)',
-    backgroundColor: '#fff', // Set your background color here
-    padding: 10,
-    marginBottom: 10,
-    borderRadius: 5,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5,
-  },
-  imageColumn: {
     flex: 1,
-    height: 550,
-    width: 400,
+    marginRight: 10,
   },
   image: {
     width: 80,
     height: 80,
-    marginRight: '20px',
-    borderRadius: '100px',
-    padding: '20px',
+    marginRight: 20,
+    borderRadius: 100,
+    padding: 20,
   },
-   imageB: {
-    width: 370,
+  selectedImageContainer: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginLeft: 20,
+  },
+  selectedImage: {
+    width: 380,
     height: 432,
     resizeMode: 'cover',
-    borderRadius: 10,
+    borderRadius: 15,
+    marginBottom: 20,
   },
   title: {
     fontWeight: 'bold',
@@ -128,15 +155,75 @@ const styles = StyleSheet.create({
   },
   highlight: {
     color: 'black',
+    display: 'inline-block',
+    float: 'left',
   },
   price: {
-    fontSize: 18,
     fontWeight: 'bold',
-    color: 'orange',
+    color: '#fbaf32',
+    display: 'inline-block',
+    float: 'right',
+    padding: 5,
   },
-   description: {
+  description: {
     fontSize: 16,
-    color: '#757575', 
+    fontWeight: '400',
+    lineHeight: 24,
+    textAlign: 'left',
+    color: '#757575',
+    fontFamily: 'open sans, sans-serif',
+  },
+  countContainer: {
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 10,
+  },
+  countButtonContainer: {
+  flexDirection: 'row', // Keep the buttons in a row
+  alignItems: 'center',
+  justifyContent: 'center',
+  marginBottom: 10, // Add some space between the count buttons and the order button
+},
+  countButton: {
+    backgroundColor: '#ccc',
+    borderRadius: 15,
+    paddingHorizontal: 15,
+    paddingVertical: 10,
+    marginRight: 10,
+  },
+  countButtonText: {
+    fontSize: 16,
+    color: '#000',
+  },
+  countBox: {
+    borderWidth: 1,
+    borderColor: '#ccc',
+    borderRadius: 5,
+    paddingHorizontal: 15,
+    paddingVertical: 10,
+    marginRight: 10,
+  },
+  orderButton: {
+    backgroundColor: '#fbaf32',
+    borderRadius: 5,
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+  },
+  orderButtonText: {
+    fontSize: 16,
+    color: '#fff',
+  },
+  inputContainer: {
+    marginTop: 10,
+    borderWidth: 1,
+    borderColor: '#ccc',
+    borderRadius: 5,
+    width: '80%',
+  },
+  input: {
+    paddingHorizontal: 15,
+    paddingVertical: 10,
   },
 });
 
