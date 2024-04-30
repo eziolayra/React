@@ -180,10 +180,10 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   countButtonContainer: {
-  flexDirection: 'row', // Keep the buttons in a row
+  flexDirection: 'row',
   alignItems: 'center',
   justifyContent: 'center',
-  marginBottom: 10, // Add some space between the count buttons and the order button
+  marginBottom: 10,
 },
   countButton: {
     backgroundColor: '#ccc',
